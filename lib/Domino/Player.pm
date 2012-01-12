@@ -5,10 +5,7 @@ use strict;
 
 use Moose;
 
-has 'bones' => (
-    is => 'rw',
-    isa => 'ArrayRef[Domino::Bone]',
-);
+with 'Domino::Role::HasBones';
 
 sub is_empty {
     my ($self) = @_;
@@ -22,20 +19,6 @@ sub how_many_bones {
     return $self->size;
 }
 
-sub size {
-    my ($self) = @_;
-
-    return scalar @{ $self->bones };
-}
-
-sub pop_bone {
-    my ($self) = @_;
-
-    return if $self->is_empty;
-
-    return pop @{ $self->bones };
-}
-
 sub can_play {
     my ($self, $board) = @_;
 
@@ -43,6 +26,5 @@ sub can_play {
         $board->place( $self->pop_bone )
     }
 }
-
 
 __PACKAGE__->meta->make_immutable;

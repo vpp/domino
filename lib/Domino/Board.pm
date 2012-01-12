@@ -5,9 +5,7 @@ use strict;
 
 use Moose;
 
-has 'bones' => (
-    is => 'rw',
-);
+with 'Domino::Role::HasBones';
 
 has 'left_side' => (
     is => 'rw',
@@ -19,7 +17,10 @@ has 'right_side' => (
     default => 0,
 );
 
-# sub 
+sub _build_bones {
+    my ($self) = @_;
 
+    return [];
+}
 
 __PACKAGE__->meta->make_immutable;
